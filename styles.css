@@ -309,6 +309,15 @@ h1 {
   grid-template-columns: repeat(2, 1fr);
   gap: clamp(1.25rem, 3vw, 2rem);
 }
+.contribute-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(1.25rem, 3vw, 2rem);
+  margin-top: 1.75rem;
+}
+.contribute-grid .preview-card {
+  margin-top: 0;
+}
 .preview-card {
   margin: 0;
   display: flex;
@@ -320,6 +329,13 @@ h1 {
   background: #f8f8f7;
   aspect-ratio: 16 / 10;
   cursor: zoom-in;
+}
+.preview-img-wrap.full-width {
+  aspect-ratio: unset;
+}
+.preview-img-wrap.full-width img {
+  height: auto;
+  object-fit: unset;
 }
 .preview-img-wrap img {
   width: 100%;
@@ -354,6 +370,7 @@ h1 {
 
 @media (max-width: 720px) {
   .preview-grid { grid-template-columns: 1fr; }
+  .contribute-grid { grid-template-columns: 1fr; }
 }
 
 /* Lightbox */
@@ -518,7 +535,8 @@ h1 {
 }
 
 /* Team section */
-.team {
+.team,
+.contribute {
   padding: clamp(3rem, 7vw, 5rem) 0;
   border-top: 1px solid var(--line);
 }
@@ -527,6 +545,10 @@ h1 {
   font-size: clamp(1.25rem, 2.5vw, 1.625rem);
   margin: 0 0 2.5rem;
   color: var(--ink);
+}
+.team-intro,
+.team-outro {
+  text-align: justify;
 }
 .team-grid {
   display: grid;
