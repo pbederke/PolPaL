@@ -177,8 +177,10 @@
                     href="https://data.iadb.org/dataset/the-database-of-political-institutions-dpi-2020" target="_blank"
                     rel="noopener noreferrer"><span class="dc-abbr">DPI</span><span class="dc-name">Database of
                         Political Institutions</span></a>
-                <a class="dataset-card" href="https://www.gesis.org/en/services/finding-and-accessing-data/international-survey-programs/european-election-studies" target="_blank"
-                    rel="noopener noreferrer"><span class="dc-abbr">EES</span><span class="dc-name">European Election Studies</span></a>
+                <a class="dataset-card"
+                    href="https://www.gesis.org/en/services/finding-and-accessing-data/international-survey-programs/european-election-studies"
+                    target="_blank" rel="noopener noreferrer"><span class="dc-abbr">EES</span><span
+                        class="dc-name">European Election Studies</span></a>
                 <a class="dataset-card" href="https://christinazuber.com/data/epac/" target="_blank"
                     rel="noopener noreferrer"><span class="dc-abbr">EPAC</span><span class="dc-name">Ethnonationalism in
                         Party Competition</span></a>
@@ -191,8 +193,10 @@
                 <a class="dataset-card" href="https://europeanvaluesstudy.eu/" target="_blank"
                     rel="noopener noreferrer"><span class="dc-abbr">EVS</span><span class="dc-name">European Values
                         Study</span></a>
-                <a class="dataset-card" href="https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/LFTQEZ&version=3.0" target="_blank"
-                    rel="noopener noreferrer"><span class="dc-abbr">GPD</span><span class="dc-name">Global Populism
+                <a class="dataset-card"
+                    href="https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/LFTQEZ&version=3.0"
+                    target="_blank" rel="noopener noreferrer"><span class="dc-abbr">GPD</span><span
+                        class="dc-name">Global Populism
                         Database</span></a>
                 <a class="dataset-card" href="https://globalpartysurvey.org/" target="_blank"
                     rel="noopener noreferrer"><span class="dc-abbr">GPS</span><span class="dc-name">Global Party
@@ -314,6 +318,51 @@
             </div>
         </section>
 
+        <hr class="section-divider" />
+
+        <section class="partyfacts" aria-labelledby="partyfacts-h">
+            <p class="preview-eyebrow">Background</p>
+            <h2 id="partyfacts-h">Relation to Party Facts</h2>
+            <p class="datasets-intro">
+                Party Facts (Döring & Regel 2019) has made invaluable contributions to linking parties across a wide
+                variety of datasets. We build upon the Party Facts’ core data model (Bederke, Döring, & Regel, 2023) and
+                extend it in several important ways.
+            </p>
+            <p class="datasets-intro">
+                We acknowledge that core parties, or PolPaL entities, are oftentimes linked to each other in
+                meaningful ways, e.g., when they are part of the same alliance or when one is the predecessor or
+                successor of another party. With PolPaL, users can discover these links between parties without having
+                to conduct additional research themselves and take them into account when merging according to their use
+                case.
+            </p>
+            <p class="datasets-intro">
+                In addition, we add a temporal dimension to mitigate issues with differences in the way in which datasets
+                treat party splits and mergers. For example, one dataset might provide information on the German
+                PDS/Left, treating it as one party, while another will provide information on the PDS and the Left
+                separately, treating the Left as the successor of the PDS. In PolPaL, dataset observations for political
+                parties can now be associated with multiple PolPaL IDs across different points in time.
+            </p>
+            <p class="datasets-intro">
+                We rely on Party Facts’ core parties as a starting point. For the initial list of PolPaL entities, the
+                PolPaL ID is identical to the Party Facts ID. Please note that under special circumstances, it might be
+                that we split one Party Facts core party into several PolPaL entities. Moreover, we integrated Party
+                Facts as an external dataset, allowing users to easily link PolPaL entities back to Party Facts core
+                parties.
+            </p>
+            <p class="partyfacts-refs">
+                <a href="https://partyfacts.herokuapp.com/" target="_blank"
+                    rel="noopener noreferrer">https://partyfacts.herokuapp.com/</a><br>
+                Döring, H., &amp; Regel, S. (2019). Party Facts: A database of political parties worldwide. <em>Party
+                    Politics</em>, 25(2), 97–109. <a href="https://doi.org/10.1177/1354068818820671" target="_blank"
+                    rel="noopener noreferrer">https://doi.org/10.1177/1354068818820671</a><br>
+                Bederke, Paul; Döring, Holger; Regel, Sven, 2023, "Party Facts – Version 2023", Harvard Dataverse, V1.
+                <a href="https://doi.org/10.7910/DVN/TJINLQ" target="_blank"
+                    rel="noopener noreferrer">https://doi.org/10.7910/DVN/TJINLQ</a>
+            </p>
+        </section>
+
+
+
         <!-- Side legend -->
         <nav class="side-legend" id="side-legend" aria-label="Page sections">
             <a href="#hero-h" class="side-legend-item" data-section="hero-h"><span class="sl-dot"
@@ -326,6 +375,8 @@
                     aria-hidden="true"></span><span class="sl-label">How to contribute</span></a>
             <a href="#team-h" class="side-legend-item" data-section="team-h"><span class="sl-dot"
                     aria-hidden="true"></span><span class="sl-label">The team</span></a>
+            <a href="#partyfacts-h" class="side-legend-item" data-section="partyfacts-h"><span class="sl-dot"
+                    aria-hidden="true"></span><span class="sl-label">Relation to Party Facts</span></a>
         </nav>
 
         <!-- Lightbox -->
