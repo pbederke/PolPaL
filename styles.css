@@ -169,6 +169,29 @@ html, body {
   display: inline-block;
 }
 
+/* Funders / partner logos */
+.funders {
+  padding: clamp(1.5rem, 4vw, 2.5rem) 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.funders-logos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: clamp(1.5rem, 4vw, 3rem);
+}
+.funders-logos a {
+  display: flex;
+  align-items: center;
+}
+.funders-logos img {
+  height: 70px;
+  width: auto;
+  object-fit: contain;
+}
+
 /* Hero */
 .hero {
   padding-top: clamp(4rem, 10vw, 7rem);
