@@ -1,5 +1,5 @@
-[![Docker Image CI](https://github.com/pbederke/PolPaL_test/actions/workflows/docker-image.yml/badge.svg?branch=main)](https://github.com/pbederke/PolPaL_test/actions/workflows/docker-image.yml)
-[![Dependabot Updates](https://github.com/pbederke/PolPaL_test/actions/workflows/dependabot/dependabot-updates/badge.svg?branch=main)](https://github.com/pbederke/PolPaL_test/actions/workflows/dependabot/dependabot-updates)
+[![Docker Image CI](https://github.com/pbederke/PolPaL/actions/workflows/docker-image.yml/badge.svg?branch=main)](https://github.com/pbederke/PolPaL/actions/workflows/docker-image.yml)
+[![Dependabot Updates](https://github.com/pbederke/PolPaL/actions/workflows/dependabot/dependabot-updates/badge.svg?branch=main)](https://github.com/pbederke/PolPaL/actions/workflows/dependabot/dependabot-updates)
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 
 # Political Party Links (PolPaL)
@@ -76,9 +76,9 @@ Full details: [docs/README_TECH_STACK](docs/README_TECH_STACK.md)
 
 **Pages**
 
-- Repository: [pbederke/PolPaL_test](https://github.com/pbederke/PolPaL_test)
-- Issues: [https://github.com/pbederke/PolPaL_test/issues](https://github.com/pbederke/PolPaL_test/issues)
-- CI (Docker build): [https://github.com/pbederke/PolPaL_test/actions](https://github.com/pbederke/PolPaL_test/actions)
+- Repository: [pbederke/PolPaL](https://github.com/pbederke/PolPaL)
+- Issues: [https://github.com/pbederke/PolPaL/issues](https://github.com/pbederke/PolPaL/issues)
+- CI (Docker build): [https://github.com/pbederke/PolPaL/actions](https://github.com/pbederke/PolPaL/actions)
 - Website: [https://polpal-test.cleverapps.io/](https://polpal-test.cleverapps.io/)
 
 **Documentation**
