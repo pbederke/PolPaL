@@ -1,0 +1,36 @@
+// -------------------------------------------------------------------------
+// PROJECTS (EXTERNAL)
+// -------------------------------------------------------------------------
+
+model Projects {
+  // ID
+  projectId          Int     @id @default(autoincrement())
+
+  // Hidden status and reason
+  isHidden Boolean @default(true) // Indicates if the dataset is hidden (e.g., due to being a duplicate or having insufficient information)
+  isHiddenReason String? // The reason why the dataset is hidden (optional)
+
+  // Project information
+  projectKey         String  @unique
+  projectNameShort   String
+  projectName        String
+  projectUrl         String?
+  projectDescription String?
+
+  // Additional information
+  comment String? // A comment about the dataset (optional)
+
+  // User information
+  user           Users?     @relation("CreatedProjects", fields: [userId], references: [userId], onDelete: SetNull)
+  userId         Int? // The ID of the user who created the dataset
+
+  // Metadata
+  createdAt        DateTime   @default(now()) // The date and time when the dataset was created
+  updatedAt        DateTime   @updatedAt // The date and time when the dataset was last updated
+  // Relations
+  Datasets         Datasets[]    @relation("DatasetsInProject") // The datasets associated with this project
+  Versions         Versions[]    @relation("ProjectOfVersion") // The versions associated with this project
+  Entries          Entries[]     @relation("ProjectOfEntry") // The entries associated with this project
+
+  @@index([userId])
+}

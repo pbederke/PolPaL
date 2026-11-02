@@ -1,0 +1,50 @@
+// -------------------------------------------------------------------------
+// Entity Changes
+// -------------------------------------------------------------------------
+
+enum EntityChangesEnum {
+  SPLIT
+  MERGE
+  SPLIT_MERGE
+  REBRAND
+  UNKNOWN
+}
+
+model EntityChanges {
+  // ID and primary key
+  // This is the unique identifier for each entity change in the database
+  entityChangeId Int @id @default(autoincrement())
+
+  // Entity information
+  polpalIdOld Int // The ID of the old entity
+  polpalIdNew Int // The ID of the new entity
+
+  // Time of change
+  changeYear  Int
+  changeMonth Int?
+  changeDay   Int?
+
+  // Type of change
+  changeType    EntityChangesEnum // The type of change that occurred (e.g., split, merge, rebrand)
+
+  // Additional information
+  comment String? // A comment describing the change (optional)
+
+  // Relations
+  // These relations link the entity change to the Entity model
+  EntityOld  Entities     @relation("EntityChangesOld", fields: [polpalIdOld], references: [polpalId], onDelete: Cascade)
+  EntityNew  Entities     @relation("EntityChangesNew", fields: [polpalIdNew], references: [polpalId], onDelete: Cascade)
+  References References[] @relation("EntityChangeReferences")
+
+  // Metadata
+  createdAt DateTime @default(now()) // The date and time when the change was made
+  updatedAt DateTime @updatedAt // The date and time when the change was last updated
+
+  // User information
+  user           Users? @relation("CreatedEntityChanges", fields: [userId], references: [userId], onDelete: SetNull)
+  userId         Int? // The ID of the user who created the entity change
+
+  @@index([polpalIdOld])
+  @@index([polpalIdNew])
+  @@index([userId])
+}

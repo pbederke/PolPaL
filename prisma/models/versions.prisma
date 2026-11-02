@@ -1,0 +1,46 @@
+// -------------------------------------------------------------------------
+// DATASET VERSIONS (EXTERNAL)
+// -------------------------------------------------------------------------
+
+model Versions {
+  // ID and primary key
+  versionId Int @id @default(autoincrement())
+
+  // Hidden status and reason
+  isHidden Boolean @default(true) // Indicates if the dataset is hidden (e.g., due to being a duplicate or having insufficient information)
+  isHiddenReason String? // The reason why the dataset is hidden (optional)
+
+  // Version information
+  projectKey      String
+  datasetKey      String
+  versionKey      String  @unique // A unique key for the dataset version, used to identify it
+  version         String
+  versionName     String? // The name of the dataset version
+  versionUrl      String // The URL to the dataset version
+  versionCitation Json // A citation for the dataset version
+
+  // Additional information
+  commentVersion String? // A comment about the version (optional)
+  commentEntries String? // A comment about the import process (optional)
+
+  // Metadata
+  createdAt DateTime @default(now()) // The date and time when the entry was created
+  updatedAt DateTime @updatedAt // The date and time when the entry was last updated
+
+  // Relations
+  Projects      Projects       @relation("ProjectOfVersion", fields: [projectKey], references: [projectKey]) // The project this version belongs to
+  Datasets      Datasets       @relation("DatasetOfVersion", fields: [datasetKey], references: [datasetKey]) // The dataset this version belongs to
+  Entries       Entries[]      @relation("EntriesInVersion") // The entries associated with this version
+  DownloadLogs  DownloadLog[]  @relation("DownloadLogsForVersion") // Download log entries referencing this version
+  Variables     Variables[]    @relation("VariablesOfVersion") // The variable documentation records for this version
+
+  // User information
+  user           Users? @relation("CreatedVersions", fields: [userId], references: [userId], onDelete: SetNull) // The user who created the entry
+  userId         Int? // The ID of the user who created the version
+
+  @@index([projectKey])
+  @@index([datasetKey])
+  @@index([userId])
+
+  @@unique([projectKey, datasetKey, versionKey])
+}

@@ -1,0 +1,71 @@
+// -------------------------------------------------------------------------
+// ENTITIES
+// -------------------------------------------------------------------------
+
+// EntityTypesEnum enum to represent the type of entity or grouping
+enum EntityTypesEnum {
+  PARTY
+  GROUPING
+  INDEPENDENT
+  OTHERS
+  RESIDUAL
+  UNKNOWN
+  UNASSIGNED
+}
+
+// Entity model to represent entities and alliances in the database
+// This model will store information about entities and alliances, including their names, types, and relationships
+model Entities {
+  // IDs and primary key
+  // This is the unique identifier for each entity or alliance in the database
+  polpalId     Int  @id @default(autoincrement()) // Unique ID
+  partyfactsId Int? // ID from PartyFacts database
+
+  // Entity Hidden
+  isHidden Boolean @default(false) // Indicates if the entity is hidden (e.g., due to being a duplicate or having insufficient information)
+  isHiddenReason String? // The reason why the entity is hidden (optional)
+
+  // Entity information
+  nameShort    String // The short name of the entity
+  nameEnglish  String // The official name of the entity in English
+  name         String? // The name of the entity (optional)
+  entityType   EntityTypesEnum // Indicates if the entity is a regular entity or an alliance
+
+  // External website information
+  wikipediaUrl String? // The Wikipedia URL of the entity (optional)
+  wikidataId      String?   // The Wikidata ID of the entity (optional)
+
+  // Logo information
+  logoUrl           String?   // DEPRECATED: Cached logo URL from Wikidata (Wikimedia Commons)
+  logoUrlCachedAt   DateTime? // DEPRECATED: When the logo URL was last fetched from Wikidata
+  logoAttribution   String?   // DEPRECATED: Cached attribution JSON from Wikimedia Commons: { artist, credit, license, filePageUrl }
+
+  // Color information
+  color           String?   // Cached hex color from Wikidata P465 (e.g. "1C6B30", no leading #)
+  colorCachedAt   DateTime? // When the color was last fetched from Wikidata
+
+  // Comment
+  comment String? // A comment about the entity (optional)
+
+  // Relations
+  //Countries           Countries?           @relation("EntitiesInCountry", fields: [countrycode], references: [countrycode], onDelete: SetNull) // The country where the entity is located
+  GroupingMemberships   GroupingMembers[]       @relation("EntityMemberships") // As a member (PARTY)
+  GroupingMembers       GroupingMembers[]       @relation("GroupingMembers") // As a grouping (GROUPING)
+  EntityChangeOld       EntityChanges[]         @relation("EntityChangesOld") // The entity changes where this entity was the old entity
+  EntityChangeNew       EntityChanges[]         @relation("EntityChangesNew") // The entity changes where this entity was the new entity
+  LinksEntryToEntity    LinksEntryToEntity[]    @relation("LinkedToEntities") // The external links that are related to this entity
+  EntitiesInCountries   EntitiesInCountries[]   @relation("CountriesOfEntity") // The countries the entity is assigned to.
+  EntityNames           EntityNames[]           @relation("EntityNames") // The names of the entity in different languages or formats
+  References            References[]            @relation("EntityReferences") // The references associated with the entity
+
+  // Metadata
+  createdAt DateTime @default(now()) // The date and time when the entity was created
+  updatedAt DateTime @updatedAt // The date and time when the entity was last updated
+
+  // User information
+  user           Users? @relation("CreatedEntities", fields: [userId], references: [userId], onDelete: SetNull) // The user who created the entity
+  userId         Int? // The ID of the user who created the entity
+
+  @@index([entityType])
+  @@index([userId])
+}

@@ -1,0 +1,20 @@
+enum ReportTicketStatus {
+  OPEN
+  IN_PROGRESS
+  RESOLVED
+  CLOSED
+}
+
+model ReportTicket {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  url         String?
+  status      ReportTicketStatus @default(OPEN)
+  userId      Int
+  user        Users @relation("UserReportTickets", fields: [userId], references: [userId], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("report_tickets")
+}

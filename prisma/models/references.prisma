@@ -1,0 +1,50 @@
+enum ReferenceTypeEnum {
+  Website
+  Literature
+  Document
+  Database
+  News
+  Other
+}
+
+model References {
+  referenceId Int @id @default(autoincrement())
+
+  // One of these fields must be set:
+  polpalId              Int?
+  entitiesInCountriesId Int?
+  entityChangeId        Int?
+  entityNameId          Int?
+  groupingMemberId      Int?
+
+  // Relation fields
+  Entities            Entities?            @relation("EntityReferences", fields: [polpalId], references: [polpalId], onDelete: Cascade)
+  EntitiesInCountries EntitiesInCountries? @relation("EntityCountryReferences", fields: [entitiesInCountriesId], references: [entityInCountryId], onDelete: Cascade)
+  EntityChanges       EntityChanges?       @relation("EntityChangeReferences", fields: [entityChangeId], references: [entityChangeId], onDelete: Cascade)
+  EntityNames         EntityNames?         @relation("EntityNameReferences", fields: [entityNameId], references: [entityNameId], onDelete: Cascade)
+  GroupingMembers     GroupingMembers?     @relation("GroupingMemberReferences", fields: [groupingMemberId], references: [groupingMemberId], onDelete: Cascade)
+
+  // Referenced field in the related model
+  referencedField String?
+
+  // Reference fields
+  type     ReferenceTypeEnum
+  value    String
+  language LanguageCodeEnum? // ISO 639-1 language code for the reference value, if applicable
+  accessedAt DateTime?
+  comment  String?
+
+  // Timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // User relation
+  user           Users? @relation("CreatedReferences", fields: [userId], references: [userId], onDelete: SetNull)
+  userId         Int?
+
+  @@index([polpalId])
+  @@index([entitiesInCountriesId])
+  @@index([entityChangeId])
+  @@index([entityNameId])
+  @@index([groupingMemberId])
+}

@@ -1,0 +1,27 @@
+// -------------------------------------------------------------------------
+// DOWNLOAD LOG
+// -------------------------------------------------------------------------
+
+enum DownloadType {
+  COUNTRIES
+  ENTITIES
+  GROUPINGS
+  ENTRIES
+  SCRIPT
+  VERSIONS_OVERVIEW
+  ENTITY_NAMES
+}
+
+model DownloadLog {
+  id           Int          @id @default(autoincrement())
+  downloadType DownloadType
+  versionKey   String?
+  version      Versions?    @relation("DownloadLogsForVersion", fields: [versionKey], references: [versionKey], onDelete: SetNull)
+  filters      Json
+  downloadedAt DateTime     @default(now())
+
+  @@index([downloadType])
+  @@index([downloadedAt])
+  @@index([versionKey])
+  @@map("download_logs")
+}

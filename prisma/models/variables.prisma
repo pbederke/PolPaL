@@ -1,0 +1,27 @@
+// -------------------------------------------------------------------------
+// ENTRY VARIABLE DOCUMENTATION
+// -------------------------------------------------------------------------
+
+model Variables {
+    variableId Int @id @default(autoincrement())
+
+    versionKey       String
+    entryEntityIdVar String
+    varTitle         String
+    varContent       String
+
+    // Metadata
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    // Relations
+    Versions Versions @relation("VariablesOfVersion", fields: [versionKey], references: [versionKey], onDelete: Cascade)
+
+    // User information
+    user   Users? @relation("VariablesCreatedBy", fields: [userId], references: [userId], onDelete: SetNull)
+    userId Int?
+
+    @@unique([versionKey, entryEntityIdVar])
+    @@index([versionKey])
+    @@index([userId])
+}

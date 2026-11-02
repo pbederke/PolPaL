@@ -1,0 +1,2 @@
+-- AlterEnum
+ALTER TYPE "DownloadType" ADD VALUE 'VERSIONS_OVERVIEW';

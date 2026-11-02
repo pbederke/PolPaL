@@ -1,0 +1,25 @@
+model News {
+    // ID
+    newsId            Int       @id @default(autoincrement()) // The unique identifier for the news item
+
+    // News information
+    title         String // The title of the news item
+    content       String // The content of the news item
+    links         Json? // Any relevant links associated with the news item (optional)
+
+    // Publication information
+    publishedPublicAt DateTime // The date when the news item was published
+    updatedPublicAt   DateTime? // The date when the news item was last updated
+
+    // Metadata
+    createdAt         DateTime  @default(now()) // The date and time when the news item was created
+    updatedAt         DateTime  @updatedAt // The date and time when the news item was last updated
+
+    // User information
+    user            Users?    @relation("CreatedNews", fields: [userId], references: [userId], onDelete: SetNull) // The user who created the news item
+    userId          Int? // The ID of the user who created the news item
+
+    @@index([publishedPublicAt])
+    @@index([updatedPublicAt])
+    @@index([userId])
+}

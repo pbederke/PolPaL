@@ -1,0 +1,30 @@
+enum ValidationEnum {
+    APPROVED
+    REJECTED
+    NONE
+}
+
+model ValidationLinks {
+    validationId Int          @id @default(autoincrement())
+
+    // Foreign keys
+    linkId         Int
+    userId         Int?
+
+    // Validation result
+    validated       ValidationEnum @default(NONE)
+    comment        String?
+
+    // Metadata
+    createdAt      DateTime     @default(now())
+    updatedAt      DateTime     @updatedAt
+
+    // Relations
+    Link           LinksEntryToEntity @relation("ValidationLinks", fields: [linkId], references: [linkEntriesToEntityId], onDelete: Cascade)
+    User           Users?             @relation("ValidatedLinks", fields: [userId], references: [userId], onDelete: SetNull)
+
+    // One vote per user per link
+    @@unique([linkId, userId])
+    @@index([linkId])
+    @@index([userId])
+}

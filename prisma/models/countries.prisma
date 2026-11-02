@@ -1,0 +1,55 @@
+// -------------------------------------------------------------------------
+// COUNTRY
+// -------------------------------------------------------------------------
+
+// Country model to represent countries in the database
+// This model will store information about countries, including their codes and names data
+model Countries {
+  // ID and primary key
+  // This is the unique identifier for each country in the database
+  countryId Int @id @default(autoincrement())
+
+  // This field indicates whether the entry represents a country
+  isCountry Boolean
+
+  // Hidden status and reason
+  isHidden Boolean @default(false) // Indicates if the country is hidden (e.g., due to being a duplicate or having insufficient information)
+  isHiddenReason String? // The reason why the country is hidden (optional)
+
+  // Country information
+  // These fields represent the country codes and names
+  countrycodePolpal   String  @unique // Similar to ISO3c, some special cases
+  iso2c               String? // The ISO 3166-1 alpha-2 code of the country
+  iso3c               String? // The ISO 3166-1 alpha-3 code of the country
+  iso3n               Int? // The ISO 3166-1 numeric code of the country
+  countryname         String // The common name of the country
+  countrycodeRPackage String? // The country name from the countrycode package (optional)
+
+  // Regional information
+  // These fields represent the continent and regional information of the country
+  region                 String? // The continent the country belongs to
+  regionCode             Int? // The UN M49 region code of the country
+  regionSub              String? // The region the country belongs to (e.g., Western Europe, Eastern Africa)
+  regionSubCode          Int? // The UN M49 subregion code of the country
+  regionIntermediate     String? // The subregion the country belongs to (e.g., Southern Europe, Central Africa)
+  regionIntermediateCode Int? // The UN M49 intermediate region code of the country
+
+  // Additional information
+  comment String? // DEPRECATED: A comment about the country (optional)
+
+  // User information
+  user           Users? @relation("CreatedCountries", fields: [userId], references: [userId], onDelete: SetNull) // The user who created the country
+  userId         Int? // The ID of the user who created the country
+
+  // Metadata
+  createdAt DateTime @default(now()) // The date and time when the country was created
+  updatedAt DateTime @updatedAt // The date and time when the country was last updated
+
+  // Relations
+  //Entities            Entities[]             @relation("EntitiesInCountry") // The entities that are in this country
+  Entries                Entries[]                @relation("EntriesInCountry") // The entries in external datasets that are related to this country
+  EntitiesInCountries    EntitiesInCountries[]    @relation("EntitiesInCountry") // The entities that are in this country
+
+  @@index([countrycodePolpal])
+  @@index([userId])
+}

@@ -1,0 +1,70 @@
+// -------------------------------------------------------------------------
+// USER (INTERNAL)
+// -------------------------------------------------------------------------
+
+// Role enum to represent user roles in the system
+// This enum defines the different roles a user can have, such as READER, WRITER
+enum RoleEnum {
+  ADMIN
+  DATAMANAGER
+  EDITOR
+  CONTRIBUTOR
+  USER
+  ROBOT
+}
+
+// User model to represent users in the database
+// This model will store user information, including email, username, password, and role
+model Users {
+  // ID and primary key
+  // This is the unique identifier for each user in the database
+  userId Int @id @default(autoincrement())
+
+  // Personal information
+  nameFirst String
+  nameLast  String
+  email     String @unique
+  username  String @unique
+  password  String
+
+  // Email verification
+  emailVerified        Boolean   @default(false)
+  emailVerifyToken     String?   @unique
+  emailVerifyExpiresAt DateTime?
+
+  // Password reset
+  passwordResetToken     String?   @unique
+  passwordResetExpiresAt DateTime?
+
+  // Access rights
+  approvedByAdmin Boolean  @default(false)
+  role            RoleEnum @default(USER)
+  tokenVersion    Int      @default(0)
+
+  // Metadata
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  Countries              Countries[]              @relation("CreatedCountries") // The countries created by the user
+  Entities               Entities[]               @relation("CreatedEntities") // The entities created by the user
+  GroupingMembers        GroupingMembers[]        @relation("CreatedGroupingMembers") // The grouping members/memberships created by the user
+  EntityChanges          EntityChanges[]          @relation("CreatedEntityChanges") // The entity changes created by the user
+  EntitiesInCountries    EntitiesInCountries[]    @relation("CreatedEntitiesInCountries") // The entities in countries created by the user
+  EntityNames            EntityNames[]            @relation("CreatedEntityNames") // The entity names created by the user
+  Projects               Projects[]               @relation("CreatedProjects") // The projects created by the user
+  Datasets               Datasets[]               @relation("CreatedDatasets") // The datasets created by the user
+  Versions               Versions[]               @relation("CreatedVersions") // The versions created by the user
+  Entries                Entries[]                @relation("ImportedEntries") // The entries imported by the user
+  LinksEntryToEntity     LinksEntryToEntity[]     @relation("CreatedLinksToEntity") // The links created by the user
+  ChangeLog              Changelog[]              @relation("CreatedChangelog") // The changes (changelogs) created by the user
+  News                   News[]                   @relation("CreatedNews") // The news articles created by the user
+  References             References[]             @relation("CreatedReferences") // The references created by the user
+  ValidationLinks        ValidationLinks[]        @relation("ValidatedLinks") // The validated links by the user
+  ReportTickets          ReportTicket[]           @relation("UserReportTickets") // The report tickets created by the user
+  Variables              Variables[]              @relation("VariablesCreatedBy") // The variable documentation records created by the user
+
+  @@index([emailVerified])
+  @@index([approvedByAdmin])
+  @@index([role])
+}

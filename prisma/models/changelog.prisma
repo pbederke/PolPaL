@@ -1,0 +1,65 @@
+// -------------------------------------------------------------------------
+// CHANGELOG
+// -------------------------------------------------------------------------
+
+// TableNameEnum enum to represent data tables in the database
+// This enum will be used to represent the data table changes happend
+enum TableNamesEnum {
+  countries
+  entities
+  individuals
+  groupingMembers
+  entitiesInCountries
+  entityChanges
+  entityNames
+  individualsInCountries
+  individualsInEntities
+  linksEntriesToEntities
+  entries
+  versions
+  datasets
+  projects
+  news
+  users
+  references
+  variables
+}
+
+// ChangeActionEnum enum to represent the type of change
+enum ChangeActionEnum {
+  CREATED
+  UPDATED
+  DELETED
+}
+
+// Changelog model to track changes in the database
+// This model will log changes made to other models in the database
+model Changelog {
+  // ID and primary key
+  changelogId Int @id @default(autoincrement())
+
+  // Entry of the changed
+  tableName  TableNamesEnum
+  recordId   Int
+  recordName String
+
+  // Content of the change
+  action   ChangeActionEnum
+  field    String?
+  oldValue String?
+  newValue String?
+  comment  String?
+  batchId  String? // A batch ID to group changes together, if applicable
+  bulk     Boolean  @default(false)
+
+  // User who made the change
+  user           Users?   @relation("CreatedChangelog", fields: [userId], references: [userId], onDelete: SetNull)
+  userId         Int? // The ID of the user who changed the record
+  changedAt               DateTime @default(now())
+
+  @@index([tableName, recordId])
+  @@index([action])
+  @@index([userId])
+  @@index([batchId])
+  @@index([changedAt])
+}

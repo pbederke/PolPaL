@@ -1,0 +1,43 @@
+// -------------------------------------------------------------------------
+// MEMBERSHIPS/MEMBERS
+// -------------------------------------------------------------------------
+
+model GroupingMembers {
+  // ID and primary key
+  // This is the unique identifier for each alliance membership in the database
+  groupingMemberId Int @id @default(autoincrement()) // The unique identifier for the alliance membership
+
+  // Entity and alliance IDs
+  // These fields represent the foreign keys to the Entity model
+  entityId   Int // FK to Entity with type ENTITY
+  groupingId Int // FK to Entity with type GROUPING
+
+  // Time period of membership
+  startYear  Int? // Should be changed to required in the future, but currently optional
+  startMonth Int?
+  startDay   Int?
+  endYear    Int?
+  endMonth   Int?
+  endDay     Int?
+
+  // Additional information
+  comment String? // A comment about the grouping membership (optional)
+
+  // Relations
+  // These relations link the alliance membership to the Entity model
+  Entities   Entities     @relation("EntityMemberships", fields: [entityId], references: [polpalId], onDelete: Cascade)
+  Groupings  Entities     @relation("GroupingMembers", fields: [groupingId], references: [polpalId], onDelete: Cascade)
+  References References[] @relation("GroupingMemberReferences") // The references associated with the grouping member
+
+  // Metadata
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // User information
+  user           Users? @relation("CreatedGroupingMembers", fields: [userId], references: [userId], onDelete: SetNull)
+  userId         Int? // The ID of the user who created the grouping membership
+
+  @@index([entityId])
+  @@index([groupingId])
+  @@index([userId])
+}

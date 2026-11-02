@@ -1,0 +1,14 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: "Bederke"
+  given-names: "Paul"
+  orcid: "https://orcid.org/0000-0001-7555-8656"
+- family-names: "Kaftan"
+  given-names: "Lea"
+  orcid: "https://orcid.org/0000-0002-8961-6420"
+title: "PolPaL - Political Party Links"
+version: 1.0.0
+doi: 
+date-released: 2026-05-22
+url: "https://github.com/pbederke/PolPaL"

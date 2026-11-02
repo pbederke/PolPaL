@@ -1,0 +1,64 @@
+{
+    "@context": "https://w3id.org/codemeta/3.0",
+    "type": "SoftwareSourceCode",
+    "applicationCategory": "Political Science",
+    "author": [
+        {
+            "id": "https://orcid.org/0000-0001-7555-8656",
+            "type": "Person",
+            "affiliation": {
+                "type": "Organization",
+                "name": "GESIS – Leibniz Institute for the Social Sciences"
+            },
+            "email": "paul.bederke@gesis.org",
+            "familyName": "Bederke",
+            "givenName": "Paul"
+        },
+        {
+            "id": "https://orcid.org/0000-0002-8961-6420",
+            "type": "Person",
+            "affiliation": {
+                "type": "Organization",
+                "name": "GESIS – Leibniz Institute for the Social Sciences"
+            },
+            "email": "lea.kaftan@gesis.org",
+            "familyName": "Kaftan",
+            "givenName": "Lea"
+        }
+    ],
+    "codeRepository": "https://github.com/pbederke/PolPaL_test",
+    "dateCreated": "2026-05-22",
+    "dateModified": "2026-05-22",
+    "datePublished": "2026-05-22",
+    "description": "PolPaL is a community linkage key database. It allows users to link political party IDs across datasets.",
+    "funder": {
+        "type": "Organization",
+        "name": "OSCARS"
+    },
+    "isPartOf": "https://polpal-test.cleverapps.io/",
+    "keywords": [
+        "data",
+        "linkage key database",
+        "political parties",
+        "political science"
+    ],
+    "license": "https://spdx.org/licenses/AGPL-3.0-only",
+    "name": "PolPaL - Political Party Links",
+    "operatingSystem": "Linux-based container",
+    "programmingLanguage": "TypeScript",
+    "relatedLink": "https://polpal-test.cleverapps.io/",
+    "runtimePlatform": "Node.js",
+    "softwareRequirements": [
+        "https://www.docker.com/",
+        "https://nextjs.org/",
+        "https://nodejs.org/en/",
+        "https://www.prisma.io/",
+        "https://www.postgresql.org/"
+    ],
+    "version": "1.0.0",
+    "continuousIntegration": "https://github.com/pbederke/PolPaL_test/actions",
+    "developmentStatus": "wip",
+    "funding": "OSCARS 1st Open Call for Open Science Projects and Services",
+    "isSourceCodeOf": "PolPaL - Political Party Links",
+    "issueTracker": "https://github.com/pbederke/PolPaL_test/issues"
+}

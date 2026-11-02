@@ -1,0 +1,32 @@
+// -------------------------------------------------------------------------
+// Entities in Countries
+// -------------------------------------------------------------------------
+
+model EntitiesInCountries {
+  entityInCountryId Int @id @default(autoincrement()) // The unique identifier for the entity-country relationship
+
+  // IDs
+  polpalId               Int // The ID of the entity
+  countrycodePolpal      String // The country code
+
+  // Additional information
+  comment String? // A comment about the entity-in-country relationship (optional)
+
+  // Relations
+  Entities  Entities  @relation("CountriesOfEntity", fields: [polpalId], references: [polpalId], onDelete: Cascade)
+  Countries Countries @relation("EntitiesInCountry", fields: [countrycodePolpal], references: [countrycodePolpal], onDelete: Cascade)
+  References References[] @relation("EntityCountryReferences") // The references associated with the entity-in-country relationship
+
+  // Metadata
+  createdAt DateTime @default(now()) // The date and time when the entity was created
+  updatedAt DateTime @updatedAt // The date and time when the entity was last updated
+
+  // User information
+  user           Users? @relation("CreatedEntitiesInCountries", fields: [userId], references: [userId], onDelete: SetNull) // The user who created the entity-in-country entry
+  userId         Int? // The ID of the user who created the entity-in-country entry
+
+  @@unique([polpalId, countrycodePolpal])
+  @@index([countrycodePolpal])
+  @@index([polpalId])
+  @@index([userId])
+}

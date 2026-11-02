@@ -1,0 +1,73 @@
+// -------------------------------------------------------------------------
+// DATASET ENTRIES (EXTERNAL)
+// -------------------------------------------------------------------------
+
+model Entries {
+    // ID and primary key
+    // This is the unique identifier for each dataset entry in the database
+    entryId Int @id @default(autoincrement())
+
+    // File information
+    usedFile       String // The file used for the entry
+    dateDownloaded String // The date when the entry was downloaded [YYYY-MM-DD]
+
+    // Dataset information
+    projectKey String // The key of the project this entry belongs to
+    datasetKey String // The key of the dataset this entry belongs to
+    versionKey String // The key of the version this entry belongs to
+
+    // Relations
+    Projects Projects @relation("ProjectOfEntry", fields: [projectKey], references: [projectKey]) // The project this entry belongs to
+    Datasets Datasets @relation("EntriesInDataset", fields: [datasetKey], references: [datasetKey]) // The dataset this entry belongs to
+    Versions Versions @relation("EntriesInVersion", fields: [versionKey], references: [versionKey], onDelete: Cascade) // The version this entry belongs to
+
+    // Entry information
+    entryCountryVar String? // The variable name of the country in the dataset
+    entryCountry    String? // The country name in the dataset
+
+    entryYearVar String? // The variable name of the year in the dataset (optional)
+    entryYear    Int? // The year of the entry in the dataset (optional)
+
+    entryMonthVar String? // The variable name of the month in the dataset (optional)
+    entryMonth    Int? // The month of the entry in the dataset (optional)
+
+    entryDayVar String? // The variable name of the day in the dataset (optional)
+    entryDay    Int? // The day of the entry in the dataset (optional)
+
+    entryEntityIdVar String // The variable name of the entity ID in the dataset
+    entryEntityId    String // The entity ID in the dataset
+
+    entryEntityNameShortVar   String? // The variable name of the short entity name in the dataset (optional)
+    entryEntityNameShort      String? // The short name of the entity in the dataset (optional)
+    
+    entryEntityNameEnglishVar String? // The variable name of the English entity name in the dataset (optional)
+    entryEntityNameEnglish    String? // The English name of the entity in the dataset (optional)
+
+    entryEntityNameVar String? // The variable name of the entity name in the dataset (optional)
+    entryEntityName    String? // The name of the entity in the dataset (optional)
+
+    additionalInformation String? // Additional information for the entry (optional)
+
+    // Information
+    countrycodePolpal   String // The country code of the entry
+    Countries           Countries @relation("EntriesInCountry", fields: [countrycodePolpal], references: [countrycodePolpal]) // The country this entry belongs to
+    uniqueObservationId String    @unique // A unique identifier for the observation in the dataset
+    note                String? // A note for the entry (optional)
+
+    // Links to Entities
+    LinksEntryToEntity LinksEntryToEntity[] @relation("LinkedToEntries") // The links associated with this entry
+
+    // Metadata
+    createdAt DateTime @default(now()) // The date and time when the entry was created
+    updatedAt DateTime @updatedAt // The date and time when the entry was last updated
+
+    // User information
+    user           Users? @relation("ImportedEntries", fields: [userId], references: [userId], onDelete: SetNull) // The user who created the entry
+    userId         Int? // The ID of the user who created the entry
+
+    @@index([versionKey, countrycodePolpal])
+    @@index([datasetKey])
+    @@index([projectKey])
+    @@index([countrycodePolpal])
+    @@index([userId])
+}

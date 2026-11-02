@@ -1,0 +1,23 @@
+// -------------------------------------------------------------------------
+// ABOUT page
+// -------------------------------------------------------------------------
+
+enum TableNameAboutEnum {
+    member
+    student
+    contribution
+    grants
+    support
+}
+
+model About {
+    id Int @id @default(autoincrement())
+    tableName TableNameAboutEnum
+    name String?
+    affiliation String?
+    time String?
+    url String?
+    funding String?
+    comment String?
+    createdAt DateTime @default(now())
+}

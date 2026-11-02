@@ -1,0 +1,42 @@
+// -------------------------------------------------------------------------
+// DATASETS (EXTERNAL)
+// -------------------------------------------------------------------------
+
+model Datasets {
+    // ID and primary key
+    // This is the unique identifier for each dataset in the database
+    datasetId Int @id @default(autoincrement())
+
+    // Hidden status and reason
+    isHidden Boolean @default(true) // Indicates if the dataset is hidden (e.g., due to being a duplicate or having insufficient information)
+    isHiddenReason String? // The reason why the dataset is hidden (optional)
+
+    // Dataset information
+    projectKey         String // The key of the project this dataset belongs to (optional)
+    datasetKey         String  @unique // A unique key for the dataset, used to identify it
+    datasetNameShort   String
+    datasetName        String
+    datasetUrl         String?
+    datasetDescription String?
+
+    // Additional information
+    comment String? // A comment about the dataset (optional)
+
+    // Metadata
+    createdAt DateTime @default(now()) // The date and time when the dataset was created
+    updatedAt DateTime @updatedAt // The date and time when the dataset was last updated
+
+    // User information
+    user           Users?     @relation("CreatedDatasets", fields: [userId], references: [userId], onDelete: SetNull)
+    userId         Int? // The ID of the user who created the dataset
+
+    // Relations
+    Projects         Projects   @relation("DatasetsInProject", fields: [projectKey], references: [projectKey])
+    Versions         Versions[] @relation("DatasetOfVersion") // The versions of this dataset
+    Entries          Entries[]  @relation("EntriesInDataset") // The entries of this dataset
+
+    @@index([projectKey])
+    @@index([userId])
+
+    @@unique([projectKey, datasetKey])
+}

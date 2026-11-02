@@ -1,0 +1,32 @@
+// In prisma/models/rate-limiters.prisma (or any .prisma file)
+model rate_limiter_login {
+  key    String  @id @db.VarChar(255)
+  points Int     @default(0)
+  expire BigInt?
+
+  @@ignore
+}
+
+model rate_limiter_register {
+  key    String  @id @db.VarChar(255)
+  points Int     @default(0)
+  expire BigInt?
+
+  @@ignore
+}
+
+model rate_limiter_download {
+  key    String  @id @db.VarChar(255)
+  points Int     @default(0)
+  expire BigInt?
+
+  @@ignore
+}
+
+model rate_limiter_password_reset {
+  key    String  @id @db.VarChar(255)
+  points Int     @default(0)
+  expire BigInt?
+
+  @@ignore
+}

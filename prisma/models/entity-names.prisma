@@ -1,0 +1,229 @@
+// -------------------------------------------------------------------------
+// Entity Names
+// -------------------------------------------------------------------------
+
+model EntityNames {
+  // ID and primary key
+  // This is the unique identifier for each entity name in the database
+  entityNameId Int @id @default(autoincrement())
+
+  // Entity information
+  polpalId Int // The ID of the entity
+
+  // Name information
+  nameShort    String // The short name of the entity
+  name         String // The name of the entity
+  language LanguageCodeEnum // The language of the name - ISO 639-1 language code
+
+  // Additional information
+  comment      String? // A comment about the name (optional)
+
+  // Time frame
+  startYear  Int? // The year when the name started being used (optional)
+  startMonth Int? // The month when the name started being used (optional)
+  startDay   Int? // The day when the name started being used (optional)
+  endYear    Int? // The year when the name stopped being used (optional)
+  endMonth   Int? // The month when the name stopped being used (optional)
+  endDay     Int? // The day when the name stopped being used (optional)
+
+  // Relations
+  Entities   Entities     @relation("EntityNames", fields: [polpalId], references: [polpalId], onDelete: Cascade)
+  References References[] @relation("EntityNameReferences") // The references associated with the entity name
+
+  // Metadata
+  createdAt DateTime @default(now()) // The date and time when the entity name was created
+  updatedAt DateTime @updatedAt // The date and time when the entity name was last updated
+
+  // User information
+  user           Users? @relation("CreatedEntityNames", fields: [userId], references: [userId], onDelete: SetNull) // The user who created the entity name
+  userId         Int? // The ID of the user who created the entity name
+
+  @@index([polpalId])
+  @@index([userId])
+}
+
+enum LanguageCodeEnum {
+  aa
+  ab
+  ae
+  af
+  ak
+  am
+  an
+  ar
+  as
+  av
+  ay
+  az
+  ba
+  be
+  bg
+  bi
+  bm
+  bn
+  bo
+  br
+  bs
+  ca
+  ce
+  ch
+  co
+  cr
+  cs
+  cu
+  cv
+  cy
+  da
+  de
+  dv
+  dz
+  ee
+  el
+  en
+  eo
+  es
+  et
+  eu
+  fa
+  ff
+  fi
+  fj
+  fo
+  fr
+  fy
+  ga
+  gd
+  gl
+  gn
+  gu
+  gv
+  ha
+  he
+  hi
+  ho
+  hr
+  ht
+  hu
+  hy
+  hz
+  ia
+  id
+  ie
+  ig
+  ii
+  ik
+  io
+  is
+  it
+  iu
+  ja
+  jv
+  ka
+  kg
+  ki
+  kj
+  kk
+  kl
+  km
+  kn
+  ko
+  kr
+  ks
+  ku
+  kv
+  kw
+  ky
+  la
+  lb
+  lg
+  li
+  ln
+  lo
+  lt
+  lu
+  lv
+  mg
+  mh
+  mi
+  mk
+  ml
+  mn
+  mr
+  ms
+  mt
+  my
+  na
+  nb
+  nd
+  ne
+  ng
+  nl
+  nn
+  no
+  nr
+  nv
+  ny
+  oc
+  oj
+  om
+  or
+  os
+  pa
+  pi
+  pl
+  ps
+  pt
+  qu
+  rm
+  rn
+  ro
+  ru
+  rw
+  sa
+  sc
+  sd
+  se
+  sg
+  si
+  sk
+  sl
+  sm
+  sn
+  so
+  sq
+  sr
+  ss
+  st
+  su
+  sv
+  sw
+  ta
+  te
+  tg
+  th
+  ti
+  tk
+  tl
+  tn
+  to
+  tr
+  ts
+  tt
+  tw
+  ty
+  ug
+  uk
+  ur
+  uz
+  ve
+  vi
+  vo
+  wa
+  wo
+  xh
+  yi
+  yo
+  za
+  zh
+  zu
+}

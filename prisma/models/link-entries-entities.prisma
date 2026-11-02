@@ -1,0 +1,40 @@
+// -------------------------------------------------------------------------
+// LINKS
+// -------------------------------------------------------------------------
+
+model LinksEntryToEntity {
+    linkEntriesToEntityId Int @id @default(autoincrement())
+
+    // IDs
+    uniqueObservationId String
+    polpalId            Int
+
+    // Date information
+    startYear  Int?
+    startMonth Int?
+    startDay   Int?
+    endYear    Int?
+    endMonth   Int?
+    endDay     Int?
+
+    // Additional information
+    comment     String?
+
+    // Relations
+    Entries  Entries  @relation("LinkedToEntries", fields: [uniqueObservationId], references: [uniqueObservationId], onDelete: Cascade)
+    Entities Entities @relation("LinkedToEntities", fields: [polpalId], references: [polpalId], onDelete: Cascade)
+    ValidationLinks ValidationLinks[] @relation("ValidationLinks")
+
+    // Metadata
+    createdAt DateTime @default(now()) // The date and time when the entry was created
+    updatedAt DateTime @updatedAt // The date and time when the entry was last updated
+
+    // User information
+    userId         Int? // The ID of the user who created the dataset
+    user           Users? @relation("CreatedLinksToEntity", fields: [userId], references: [userId], onDelete: SetNull) // The user who created the entry
+
+    @@unique([uniqueObservationId, polpalId])
+    @@index([polpalId])
+    @@index([uniqueObservationId])
+    @@index([userId])
+}
